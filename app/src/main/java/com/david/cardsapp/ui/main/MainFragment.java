@@ -8,22 +8,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.david.cardsapp.POkemonAPI;
 import com.david.cardsapp.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainFragment extends Fragment {
 
     private MainViewModel mViewModel;
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -33,10 +36,12 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        //View view = inflater.inflate(R.layout.fragment_main, container, false);
 
+       ArrayList<Pokemon> items = new ArrayList<>();
+       ArrayAdapter<POkemon> adapter;
 
-        String[] data = {
+        /*String[] data = {
 
             "Los 400 golpes",
             "El odio",
@@ -46,11 +51,13 @@ public class MainFragment extends Fragment {
             "Infiltrados",
             "Umberto D."
 
-        };
+        };*/
 
-        items = new ArrayList<>(Arrays.asList(data));
+        //items.add("Pika");
 
-        adapter = new ArrayAdapter<String>(
+        //items = new ArrayList<>(Arrays.asList(data));
+
+        adapter = new ArrayAdapter<Pokemon>(
 
               getContext(),
               R.layout.lv_cards_row,
@@ -59,10 +66,39 @@ public class MainFragment extends Fragment {
 
         );
 
-        ListView lvCards = view.findViewById(R.id.lvCards);
-        lvCards.setAdapter(adapter);
+        binding.lvCards.setAdapter(adapter);
 
-        return view;
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+        executor.execute(()=>
+
+                POkemonAPI api = new POkemonAPI();
+                api.getPokemons;
+
+                ArrayList<POkemon> Pokemons = api.getPOkemons();
+
+                handler.post(()=> {
+
+                    adapter.clear();
+                    adapter.addAll();
+
+                });
+
+                adapter.clear();
+                adapter.addAll(pokemons);
+
+        );
+
+        //Declarar permisos
+
+
+
+        //ListView lvCards = view.findViewById(R.id.lvCards);
+        //lvCards.setAdapter(adapter);
+
+        super.onViewCreated(view, savedInstanceState);
+
+        //return view;
 
     }
 
