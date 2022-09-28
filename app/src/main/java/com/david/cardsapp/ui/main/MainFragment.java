@@ -14,13 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import com.david.cardsapp.POkemonAPI;
+import com.david.cardsapp.PokemonAPI;
 import com.david.cardsapp.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -70,12 +68,13 @@ public class MainFragment extends Fragment {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
+
         executor.execute(()=>
 
-                POkemonAPI api = new POkemonAPI();
+                PokemonAPI api = new PokemonAPI();
                 api.getPokemons;
 
-                ArrayList<POkemon> Pokemons = api.getPOkemons();
+                ArrayList<Pokemon> Pokemons = api.getPOkemons();
 
                 handler.post(()=> {
 
