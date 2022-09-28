@@ -43,7 +43,7 @@ public class PokemonAPI {
             }
 
 
-            //Log.e("XXX POKEMONS", pokemons.toString());
+            Log.e("XXX POKEMONS", pokemons.toString());
             //return pokemons;
 
         } catch (IOException e) {
