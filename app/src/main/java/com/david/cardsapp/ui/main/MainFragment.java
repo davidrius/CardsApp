@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.david.cardsapp.Pokemon;
 import com.david.cardsapp.PokemonAPI;
 import com.david.cardsapp.R;
 
@@ -34,26 +35,13 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        //View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-       ArrayList<Pokemon> items = new ArrayList<>();
-       ArrayAdapter<POkemon> adapter;
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        /*String[] data = {
+       ArrayList<Pokemon> items = new ArrayList<Pokemon>();
+       ArrayAdapter<Pokemon> adapter;
 
-            "Los 400 golpes",
-            "El odio",
-            "El Padrino",
-            "El Padrino Parte II",
-            "Ocurrió cerca de su casa",
-            "Infiltrados",
-            "Umberto D."
-
-        };*/
-
-        //items.add("Pika");
-
-        //items = new ArrayList<>(Arrays.asList(data));
+        //items = new ArrayList<Pokemon>(Arrays.asList(data));
 
         adapter = new ArrayAdapter<Pokemon>(
 
@@ -69,14 +57,14 @@ public class MainFragment extends Fragment {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
-        executor.execute(()=>
+        executor.execute(() -> {
 
                 PokemonAPI api = new PokemonAPI();
                 api.getPokemons;
 
-                ArrayList<Pokemon> Pokemons = api.getPOkemons();
+                ArrayList<Pokemon> Pokemons = api.getPokemons();
 
-                handler.post(()=> {
+                handler.post(()-> {
 
                     adapter.clear();
                     adapter.addAll();
@@ -86,7 +74,7 @@ public class MainFragment extends Fragment {
                 adapter.clear();
                 adapter.addAll(pokemons);
 
-        );
+        });
 
         //Declarar permisos
 
@@ -97,7 +85,7 @@ public class MainFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        //return view;
+        return view;
 
     }
 
