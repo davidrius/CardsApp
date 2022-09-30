@@ -38,17 +38,17 @@ public class MainFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-       ArrayList<Pokemon> items = new ArrayList<Pokemon>();
-       ArrayAdapter<Pokemon> adapter;
+        ArrayList<Pokemon> items = new ArrayList<Pokemon>();
+        ArrayAdapter<Pokemon> adapter;
 
         //items = new ArrayList<Pokemon>(Arrays.asList(data));
 
         adapter = new ArrayAdapter<Pokemon>(
 
-              getContext(),
-              R.layout.lv_cards_row,
-              R.id.txtTitle,
-              items
+                getContext(),
+                R.layout.lv_cards_row,
+                R.id.txtTitle,
+                items
 
         );
 
@@ -59,25 +59,24 @@ public class MainFragment extends Fragment {
 
         executor.execute(() -> {
 
-                PokemonAPI api = new PokemonAPI();
-                api.getPokemons;
+            PokemonAPI api = new PokemonAPI();
+            api.getPokemons();
 
-                ArrayList<Pokemon> Pokemons = api.getPokemons();
+            ArrayList<Pokemon> Pokemons = api.getPokemons();
 
-                handler.post(()-> {
-
-                    adapter.clear();
-                    adapter.addAll();
-
-                });
+            handler.post(() -> {
 
                 adapter.clear();
-                adapter.addAll(pokemons);
+                adapter.addAll();
+
+            });
+
+            adapter.clear();
+            adapter.addAll(Pokemons);
 
         });
 
         //Declarar permisos
-
 
 
         //ListView lvCards = view.findViewById(R.id.lvCards);

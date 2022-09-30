@@ -1,13 +1,17 @@
 package com.david.cardsapp;
 
+import android.util.Log;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class PokemonAPI {
 
-    ArrayList<Pokemon> getPokemons() {
+    public ArrayList<Pokemon> getPokemons() {
 
         String url = "https://pokeapi.co/api/v2/pokemon/";
 
@@ -23,12 +27,12 @@ public class PokemonAPI {
 
             for (int i = 0; i < results.length(); i++) {
 
-                JSONObject pokemon = results.getJSONObject(i); //recorro el array
+                JSONObject pokemones = results.getJSONObject(i); //recorro el array
 
                 Pokemon pokemon = new Pokemon();
 
-                pokemon.setName(pokemonJson.getString("name"));
-                pokemon.setDetailsUrl(pokemonJson.getString("url")); //setDetailsUrl lo hemos creado en POkemon.java
+                pokemon.setName(jsonResult.getString("name"));
+                pokemon.setDetailsUrl(jsonResult.getString("url")); //setDetailsUrl lo hemos creado en POkemon.java
 
                 pokemons.add(pokemon);
 
@@ -36,27 +40,24 @@ public class PokemonAPI {
 
                 String resultDetails = HttpUtils.get(pokemon.getDetailsUrl());
                 JSONObject jsonDetails = new JSONObject(resultDetails);
-
                 pokemon.setHeight(jsonDetails.getInt("height"));
-
 
             }
 
 
             Log.e("XXX POKEMONS", pokemons.toString());
-            //return pokemons;
 
         } catch (IOException e) {
 
             e.printStackTrace();
 
-        } catch (IOException e) {
+        } catch (JSONException e) {
 
             e.printStackTrace();
 
         }
 
-        return pokemons;
+        return pokemones;
 
     }
 }
