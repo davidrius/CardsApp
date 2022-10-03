@@ -37,6 +37,7 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
+        //return binding.getROot;
 
         ArrayList<Pokemon> items = new ArrayList<Pokemon>();
         ArrayAdapter<Pokemon> adapter;
@@ -60,7 +61,7 @@ public class MainFragment extends Fragment {
         executor.execute(() -> {
 
             PokemonAPI api = new PokemonAPI();
-            api.getPokemons();
+            ArrayListapi.getPokemons();
 
             ArrayList<Pokemon> Pokemons = api.getPokemons();
 

@@ -27,14 +27,13 @@ public class PokemonAPI {
 
             for (int i = 0; i < results.length(); i++) {
 
-                JSONObject pokemones = results.getJSONObject(i); //recorro el array
+                JSONObject pokemonJson = results.getJSONObject(i); //recorro el array
 
                 Pokemon pokemon = new Pokemon();
 
-                pokemon.setName(jsonResult.getString("name"));
-                pokemon.setDetailsUrl(jsonResult.getString("url")); //setDetailsUrl lo hemos creado en POkemon.java
+                pokemon.setName(pokemonJson.getString("name")); //jsonResult
+                pokemon.setDetailsUrl(pokemonJson.getString("url")); //setDetailsUrl lo hemos creado en POkemon.java //jsonResult
 
-                pokemons.add(pokemon);
 
                 //ver logcat para verlo
 
@@ -42,10 +41,17 @@ public class PokemonAPI {
                 JSONObject jsonDetails = new JSONObject(resultDetails);
                 pokemon.setHeight(jsonDetails.getInt("height"));
 
+                JSONObject sprites = jsonDetails.getJSONObject("sprites");
+                String spriteDefault = sprites.getString("front_default");
+
+                pokemon.setHeight(jsonDetails.getInt("height"));
+                pokemon.setImage(spriteDefault);
+                pokemons.add(pokemon);
+
             }
 
-
-            Log.e("XXX POKEMONS", pokemons.toString());
+            return pokemons;
+            //Log.e("XXX POKEMONS", pokemons.toString());
 
         } catch (IOException e) {
 
@@ -57,7 +63,7 @@ public class PokemonAPI {
 
         }
 
-        return pokemones;
+        return null;
 
     }
 }
